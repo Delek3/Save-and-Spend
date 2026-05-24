@@ -1,7 +1,7 @@
 {
   "version": 2,
   "framework": null,
-  "buildCommand": "npm run build",
+  "buildCommand": "node build.mjs",
   "outputDirectory": "dist",
   "cleanUrls": true,
   "rewrites": [

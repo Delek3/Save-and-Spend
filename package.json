@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=18"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "node script/dev-server.mjs",
-    "build": "node script/build.mjs",
+    "build": "node build.mjs",
     "compile:contract": "node script/compile-contract.mjs",
     "preview": "node script/dev-server.mjs dist 4173"
   }

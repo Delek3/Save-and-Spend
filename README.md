@@ -10,6 +10,7 @@ The frontend connects by web3 wallet or email preview. When a deployed `SpendAnd
 app/
 contracts/
 script/
+build.mjs
 SPEND_AND_SAVE_FIRST_CIRCLE.md
 DEPLOY_WITH_REMIX.md
 HOSTING.md
@@ -35,7 +36,7 @@ npm run dev
 npm run build
 ```
 
-The build command copies `app/` into `dist/` and writes `dist/config.js` from environment variables.
+The Vercel build command runs `node build.mjs`. It copies `app/` into `dist/` and writes `dist/config.js` from environment variables.
 
 ## Environment Variables
 

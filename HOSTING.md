@@ -10,6 +10,7 @@ Upload the ZIP that contains this top-level structure:
 app/
 contracts/
 script/
+build.mjs
 SPEND_AND_SAVE_FIRST_CIRCLE.md
 DEPLOY_WITH_REMIX.md
 HOSTING.md
@@ -22,7 +23,7 @@ vercel.json
 
 Vercel settings:
 
-- Build command: `npm run build`
+- Build command: `node build.mjs`
 - Output directory: `dist`
 
 Environment variables:
