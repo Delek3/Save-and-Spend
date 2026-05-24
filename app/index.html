@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Spend and Save sweeps 20% of every stablecoin transfer into a savings vault on Arc Testnet."
+    />
+    <title>Spend and Save</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="config.js"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar" aria-label="Spend and Save status">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M11 17h3.5a4.5 4.5 0 0 0 0-9H9a4 4 0 0 0-4 4v5" />
+              <path d="M7 17v3" />
+              <path d="M17 17v3" />
+              <path d="M8 12h.01" />
+              <path d="M2 9h3" />
+              <path d="M19 9l2-2" />
+            </svg>
+          </div>
+          <div>
+            <p>Arc network</p>
+            <h1>Spend and Save</h1>
+          </div>
+        </div>
+        <div class="connection-pill">
+          <span id="connection-dot" class="dot"></span>
+          <span id="connected-label">Not connected</span>
+        </div>
+      </section>
+
+      <section class="hero-grid">
+        <section class="panel primary-panel" aria-labelledby="transfer-title">
+          <div class="section-heading">
+            <span class="icon-chip" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 7h11" />
+                <path d="m15 3 4 4-4 4" />
+                <path d="M16 17H5" />
+                <path d="m9 21-4-4 4-4" />
+              </svg>
+            </span>
+            <div>
+              <p>Stablecoin transfer</p>
+              <h2 id="transfer-title">Send once. Save 20% automatically.</h2>
+            </div>
+          </div>
+
+          <div class="transfer-form">
+            <label>
+              <span>Stablecoin</span>
+              <select id="coin">
+                <option value="USDC">USDC · USD Coin</option>
+                <option value="EURC">EURC · Euro Coin</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Transfer amount</span>
+              <div class="amount-input">
+                <input id="amount" inputmode="decimal" value="100" placeholder="0.00" />
+                <strong id="amount-symbol">USDC</strong>
+              </div>
+            </label>
+
+            <label>
+              <span>Recipient address</span>
+              <input id="recipient" placeholder="0x..." spellcheck="false" />
+            </label>
+
+            <label>
+              <span>Savings vault</span>
+              <input id="savings-vault" placeholder="0x..." spellcheck="false" />
+            </label>
+          </div>
+
+          <div class="split-summary" aria-label="Savings summary">
+            <div>
+              <p>Recipient gets</p>
+              <strong id="recipient-amount">100 USDC</strong>
+            </div>
+            <div>
+              <p>Savings sweep</p>
+              <strong id="savings-amount">20 USDC</strong>
+            </div>
+            <div>
+              <p>Total debit</p>
+              <strong id="total-amount">120 USDC</strong>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="transfer-button" class="button primary" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+                <path d="M12 18V6" />
+              </svg>
+              Transfer + save
+            </button>
+            <button id="network-button" class="button secondary" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+              Use Arc Testnet
+            </button>
+          </div>
+
+          <div id="status" class="status idle" role="status">
+            <span class="status-dot"></span>
+            <span id="status-text">Ready to plan a transfer.</span>
+          </div>
+        </section>
+
+        <aside class="side-stack" aria-label="Connection options">
+          <section class="panel connect-panel" aria-labelledby="wallet-title">
+            <div class="section-heading compact">
+              <span class="icon-chip" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M19 7V6a2 2 0 0 0-2-2H5a3 3 0 0 0 0 6h15a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H7" />
+                  <path d="M3 6v12a2 2 0 0 0 2 2h14" />
+                  <path d="M18 12h.01" />
+                </svg>
+              </span>
+              <div>
+                <p>Wallet</p>
+                <h2 id="wallet-title">Web3 connect</h2>
+              </div>
+            </div>
+            <button id="wallet-button" class="button primary full" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 7V6a2 2 0 0 0-2-2H5a3 3 0 0 0 0 6h15a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H7" />
+                <path d="M3 6v12a2 2 0 0 0 2 2h14" />
+                <path d="M18 12h.01" />
+              </svg>
+              Connect wallet
+            </button>
+            <div class="network-row">
+              <span>Network</span>
+              <strong id="network-label">Unknown</strong>
+            </div>
+          </section>
+
+          <section class="panel connect-panel" aria-labelledby="email-title">
+            <div class="section-heading compact">
+              <span class="icon-chip" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" />
+                </svg>
+              </span>
+              <div>
+                <p>Email</p>
+                <h2 id="email-title">Preview session</h2>
+              </div>
+            </div>
+            <form id="email-form" class="email-form">
+              <input id="email" type="email" placeholder="you@example.com" />
+              <button class="button secondary full" type="submit">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" />
+                </svg>
+                Continue
+              </button>
+            </form>
+          </section>
+
+          <section class="panel details-panel" aria-label="Arc network details">
+            <div class="detail-row">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 21h18" />
+                <path d="M5 21V8l7-5 7 5v13" />
+                <path d="M9 21v-7h6v7" />
+              </svg>
+              <div>
+                <span>Arc chain ID</span>
+                <strong>5042002</strong>
+              </div>
+            </div>
+            <div class="detail-row">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+              <div>
+                <span>Gas token</span>
+                <strong>USDC</strong>
+              </div>
+            </div>
+            <div class="detail-row">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 17h3.5a4.5 4.5 0 0 0 0-9H9a4 4 0 0 0-4 4v5" />
+                <path d="M7 17v3" />
+                <path d="M17 17v3" />
+                <path d="M8 12h.01" />
+              </svg>
+              <div>
+                <span>Rule</span>
+                <strong>20% sweep</strong>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>
